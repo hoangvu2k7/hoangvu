@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bùi Hoang Vũ | Software Engineer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #273549;
+            --text: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #cbd5e1;
+            --primary: #38bdf8;
+            --primary-dark: #0ea5e9;
+            --accent: #a78bfa;
+            --border: #334155;
+            --shadow-glow: 0 4px 20px rgba(56, 189, 248, 0.3);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ========== NAVIGATION ========== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .logo:hover {
+            filter: brightness(1.2);
+            transform: scale(1.03);
+        }
+        .logo:active {
+            transform: scale(0.97);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            transition: var(--transition);
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.3rem 0;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 101;
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .hamburger:hover {
+            background: var(--surface);
+        }
+        .hamburger:active {
+            transform: scale(0.9);
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.97);
+            z-index: 99;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .mobile-menu.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .mobile-menu a:hover,
+        .mobile-menu a:active {
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            padding: 4rem 0;
+            flex-wrap: wrap;
+        }
+        .hero-content {
+            flex: 1 1 400px;
+        }
+        .hero-content .greeting {
+            font-size: 1.1rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content .title {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .hero-content .description {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #0f172a;
+            box-shadow: var(--shadow-glow);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+        }
+        .btn-outline {
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: rgba(56, 189, 248, 0.12);
+            transform: translateY(-3px);
+        }
+        .hero-image {
+            flex: 1 1 350px;
+            display: flex;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+        .avatar-frame {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            padding: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .avatar-frame:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.5);
+        }
+        .avatar-frame:active {
+            transform: scale(1.01);
+        }
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #1e293b;
+            display: block;
+        }
+
+        /* ========== SECTIONS ========== */
+        section {
+            padding: 4rem 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-line {
+            width: 70px;
+            height: 4px;
+            background: var(--primary);
+            margin: 0.5rem auto;
+            border-radius: 4px;
+        }
+
+        /* ABOUT */
+        .about-content {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .about-text {
+            flex: 2;
+            color: var(--text-muted);
+        }
+        .about-text p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+        .info-item {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            user-select: none;
+        }
+        .info-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+            background: var(--surface-hover);
+        }
+        .info-item:active {
+            transform: scale(0.96);
+            transition: 0.1s;
+        }
+        .info-item i {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+        .info-item:hover i {
+            transform: scale(1.2);
+        }
+        .info-item span {
+            display: block;
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .info-item .detail {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+            display: none;
+        }
+        .info-item.expanded .detail {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.5rem;
+            text-align: center;
+        }
+        .skill-card {
+            background: var(--surface);
+            padding: 1.8rem 1rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            overflow: hidden;
+        }
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+            background: var(--surface-hover);
+        }
+        .skill-card:active {
+            transform: scale(0.94);
+            transition: 0.1s;
+        }
+        .skill-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            transition: var(--transition);
+        }
+        .skill-card:hover i {
+            transform: scale(1.2) rotate(-5deg);
+        }
+        .skill-card h4 {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+        .skill-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .skill-card .skill-extra {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin 0.4s ease;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-top: 0;
+        }
+        .skill-card.expanded .skill-extra {
+            max-height: 60px;
+            margin-top: 0.6rem;
+        }
+        .skill-card .click-hint {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .skill-card:hover .click-hint {
+            opacity: 0.7;
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--surface);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+        }
+        .project-card:active {
+            transform: scale(0.97);
+            transition: 0.1s;
+        }
+        .project-img {
+            height: 180px;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .project-card:hover .project-img {
+            color: #fff;
+            background: linear-gradient(135deg, #1a2940, #253449);
+        }
+        .project-info {
+            padding: 1.5rem;
+        }
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .tag {
+            background: var(--border);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+            cursor: default;
+        }
+        .tag:hover {
+            background: var(--primary);
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+        .project-link:hover {
+            gap: 0.7rem;
+            color: #fff;
+        }
+
+        /* EXPERIENCE - TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -2.1rem;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid #0f172a;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 2;
+        }
+        .timeline-dot:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .timeline-content {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+        }
+        .timeline-content:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+            background: var(--surface-hover);
+        }
+        .timeline-content:active {
+            transform: scale(0.98);
+            transition: 0.1s;
+        }
+        .timeline-content h4 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+        }
+        .timeline-content .company {
+            color: var(--primary);
+            font-weight: 500;
+            margin: 0.3rem 0;
+        }
+        .timeline-content .date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+        .timeline-content .expand-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .timeline-content:hover .expand-icon {
+            color: var(--primary);
+        }
+        .timeline-content .detail-text {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin-top 0.5s ease;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0;
+        }
+        .timeline-content.expanded .detail-text {
+            max-height: 200px;
+            margin-top: 0.8rem;
+        }
+        .timeline-content.expanded .expand-icon {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        /* CONTACT */
+        .contact-wrapper {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            background: var(--surface);
+            padding: 1rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            user-select: none;
+            position: relative;
+        }
+        .contact-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+            transform: translateX(6px);
+            background: var(--surface-hover);
+        }
+        .contact-item:active {
+            transform: scale(0.96);
+            transition: 0.1s;
+        }
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        .contact-item:hover i {
+            transform: scale(1.2);
+        }
+        .contact-item .copy-tooltip {
+            position: absolute;
+            right: -10px;
+            top: -40px;
+            background: var(--primary);
+            color: #0f172a;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, top 0.3s ease;
+            white-space: nowrap;
+        }
+        .contact-item .copy-tooltip.show {
+            opacity: 1;
+            top: -48px;
+        }
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .social-links a:hover {
+            color: var(--primary);
+            transform: scale(1.2) translateY(-3px);
+        }
+        .social-links a:active {
+            transform: scale(0.9);
+            transition: 0.1s;
+        }
+
+        /* ========== BACK TO TOP ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all var(--transition);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: #fff;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.7);
+        }
+        .back-to-top:active {
+            transform: scale(0.9);
+            transition: 0.1s;
+        }
+
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--surface);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            z-index: 200;
+            border: 1px solid var(--primary);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 150;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            max-width: 550px;
+            width: 90%;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            transform: translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--border);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: #ef4444;
+            transform: rotate(90deg);
+        }
+        .modal-close:active {
+            transform: scale(0.85) rotate(90deg);
+        }
+        .modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+        .modal p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        .modal .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        /* ========== SCROLL REVEAL ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 18px rgba(56, 189, 248, 0);
+            }
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s, opacity 0.6s;
+            pointer-events: none;
+        }
+        .ripple:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+            transition: 0s;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-content .description {
+                max-width: 100%;
+            }
+            .btn-group {
+                justify-content: center;
+            }
+            .avatar-frame {
+                width: 220px;
+                height: 220px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .mobile-menu {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .back-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1.1rem;
+            }
+            .contact-item {
+                padding: 0.8rem 1.4rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo" onclick="scrollToTop()" title="Nhấn để về đầu trang">&lt;HoangVu /&gt;</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" data-section="hero">Trang chủ</a></li>
+                <li><a href="#about" data-section="about">Giới thiệu</a></li>
+                <li><a href="#skills" data-section="skills">Kỹ năng</a></li>
+                <li><a href="#projects" data-section="projects">Dự án</a></li>
+                <li><a href="#experience" data-section="experience">Kinh nghiệm</a></li>
+                <li><a href="#contact" data-section="contact">Liên hệ</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menu" title="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+        <!-- Mobile menu -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="#hero" data-section="hero">Trang chủ</a></li>
+            <li><a href="#about" data-section="about">Giới thiệu</a></li>
+            <li><a href="#skills" data-section="skills">Kỹ năng</a></li>
+            <li><a href="#projects" data-section="projects">Dự án</a></li>
+            <li><a href="#experience" data-section="experience">Kinh nghiệm</a></li>
+            <li><a href="#contact" data-section="contact">Liên hệ</a></li>
+        </ul>
+
+        <!-- Hero -->
+        <div class="hero" id="hero">
+            <div class="hero-content">
+                <p class="greeting">👋 Xin chào, tôi là</p>
+                <h1>Bùi <span class="highlight">Hoang Vũ</span></h1>
+                <p class="title">Full-Stack Developer</p>
+                <p class="description">
+                    Tôi xây dựng những sản phẩm số tinh gọn, hiệu năng cao với trải nghiệm người dùng tuyệt vời.
+                    Đam mê kiến trúc phần mềm và mã nguồn sạch.
+                </p>
+                <div class="btn-group">
+                    <a href="#projects" class="btn btn-primary ripple"><i class="fas fa-eye"></i> Xem dự án</a>
+                    <a href="#contact" class="btn btn-outline ripple"><i class="fas fa-paper-plane"></i> Liên hệ</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="avatar-frame" id="avatarFrame" title="Nhấn để phóng to ảnh đại diện">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=faces" alt="Bùi Hoang Vũ Avatar" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>About me personally</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p>
+                        Tôi là một lập trình viên với hơn 5 năm kinh nghiệm trong phát triển web và ứng dụng doanh nghiệp.
+                        Tôi yêu thích việc biến những ý tưởng phức tạp thành giải pháp đơn giản, thân thiện.
+                    </p>
+                    <p>
+                        Hiện tại tôi tập trung vào hệ sinh thái JavaScript/TypeScript với React, Node.js và các công nghệ đám mây.
+                        Tôi luôn cập nhật xu hướng mới để cải thiện hiệu suất và bảo mật.
+                    </p>
+                    <div class="info-grid">
+                        <div class="info-item" data-detail="Kinh nghiệm thực tế qua các dự án freelance và công ty" title="Nhấn để xem chi tiết">
+                            <i class="fas fa-code"></i><span>5+ năm KN</span>
+                            <span class="detail">Bao gồm 2 năm freelance & 3 năm tại công ty</span>
+                        </div>
+                        <div class="info-item" data-detail="Đang theo học tại ĐH Lâm Nghiệp, ngành HTTT" title="Nhấn để xem chi tiết">
+                            <i class="fas fa-briefcase"></i><span>Sinh viên năm nhất</span>
+                            <span class="detail">Dự kiến tốt nghiệp: 2028</span>
+                        </div>
+                        <div class="info-item" data-detail="Chuyên ngành Hệ thống thông tin" title="Nhấn để xem chi tiết">
+                            <i class="fas fa-graduation-cap"></i><span>HTTT ĐH Lâm Nghiệp</span>
+                            <span class="detail">Khoa Công nghệ thông tin</span>
+                        </div>
+                        <div class="info-item" data-detail="Sẵn sàng làm việc remote hoặc onsite" title="Nhấn để xem chi tiết">
+                            <i class="fas fa-map-marker-alt"></i><span>Hà Nội</span>
+                            <span class="detail">Có thể di chuyển linh hoạt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Kỹ năng chuyên môn</h2>
+                <div class="section-line"></div>
+                <p style="color:#94a3b8; margin-top:0.8rem; font-size:0.9rem;">👆 Nhấn vào từng thẻ để xem mô tả chi tiết</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal" data-extra="Xây dựng SPA phức tạp, tối ưu render, custom hooks">
+                    <span class="click-hint">click</span>
+                    <i class="fab fa-react"></i><h4>React</h4><p>5 năm</p>
+                    <div class="skill-extra">Chuyên sâu: Redux, Next.js, React Query</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Thiết kế REST API, xử lý bất đồng bộ, bảo mật JWT">
+                    <span class="click-hint">click</span>
+                    <i class="fab fa-node-js"></i><h4>Node.js</h4><p>4 năm</p>
+                    <div class="skill-extra">Express, NestJS, Socket.io</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Type-safe code, generics nâng cao, migration từ JS">
+                    <span class="click-hint">click</span>
+                    <i class="fab fa-js-square"></i><h4>TypeScript</h4><p>4 năm</p>
+                    <div class="skill-extra">Zod, tRPC, type-safe API</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Thiết kế schema, tối ưu query, indexing">
+                    <span class="click-hint">click</span>
+                    <i class="fas fa-database"></i><h4>PostgreSQL</h4><p>4 năm</p>
+                    <div class="skill-extra">Prisma ORM, migration, performance tuning</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Xử lý dữ liệu, automation script, web scraping">
+                    <span class="click-hint">click</span>
+                    <i class="fab fa-python"></i><h4>Python</h4><p>3 năm</p>
+                    <div class="skill-extra">FastAPI, Pandas, Selenium</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Triển khai EC2, S3, Lambda, RDS">
+                    <span class="click-hint">click</span>
+                    <i class="fas fa-cloud"></i><h4>AWS</h4><p>2 năm</p>
+                    <div class="skill-extra">Serverless, CloudFront, CI/CD</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Container hóa ứng dụng, docker-compose, CI pipeline">
+                    <span class="click-hint">click</span>
+                    <i class="fab fa-docker"></i><h4>Docker</h4><p>3 năm</p>
+                    <div class="skill-extra">Kubernetes cơ bản, multi-stage build</div>
+                </div>
+                <div class="skill-card reveal" data-extra="Quản lý version, code review, GitFlow">
+                    <span class="click-hint">click</span>
+                    <i class="fab fa-git-alt"></i><h4>Git</h4><p>5 năm</p>
+                    <div class="skill-extra">GitHub Actions, pre-commit hooks</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Dự án nổi bật</h2>
+                <div class="section-line"></div>
+                <p style="color:#94a3b8; margin-top:0.8rem; font-size:0.9rem;">👆 Nhấn vào thẻ dự án để xem chi tiết</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal" data-project="fintrack" title="Nhấn để xem chi tiết">
+                    <div class="project-img"><i class="fas fa-chart-line"></i></div>
+                    <div class="project-info">
+                        <h3>FinTrack Dashboard</h3>
+                        <p>Nền tảng phân tích tài chính cá nhân với biểu đồ động và AI dự báo chi tiêu.</p>
+                        <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span></div>
+                        <span class="project-link">Xem chi tiết <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="project-card reveal" data-project="ecommerce" title="Nhấn để xem chi tiết">
+                    <div class="project-img"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="project-info">
+                        <h3>E-Commerce Microservices</h3>
+                        <p>Hệ thống bán hàng đa kênh, kiến trúc microservices, tích hợp thanh toán online.</p>
+                        <div class="tags"><span class="tag">Next.js</span><span class="tag">NestJS</span><span class="tag">Redis</span></div>
+                        <span class="project-link">Xem chi tiết <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="project-card reveal" data-project="health" title="Nhấn để xem chi tiết">
+                    <div class="project-img"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="project-info">
+                        <h3>Health App Mobile</h3>
+                        <p>Ứng dụng theo dõi sức khỏe, đặt lịch khám và nhắc uống thuốc thông minh.</p>
+                        <div class="tags"><span class="tag">React Native</span><span class="tag">Firebase</span></div>
+                        <span class="project-link">Xem chi tiết <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Kinh nghiệm làm việc</h2>
+                <div class="section-line"></div>
+                <p style="color:#94a3b8; margin-top:0.8rem; font-size:0.9rem;">👆 Nhấn vào từng mục để mở rộng / thu gọn</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot" title="Nhấn để mở rộng"></div>
+                    <div class="timeline-content" data-detail="Dẫn dắt nhóm 4 người, thiết lập kiến trúc micro-frontend, giảm 40% thời gian load trang. Làm việc trực tiếp với CTO để định hướng công nghệ.">
+                        <h4>Senior Frontend Developer</h4>
+                        <p class="company">Công ty TechSolutions</p>
+                        <p class="date">01/2023 - Hiện tại</p>
+                        <p>Phát triển kiến trúc frontend cho nền tảng SaaS 20K người dùng.</p>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                        <div class="detail-text">✨ Chi tiết: Dẫn dắt nhóm 4 người, thiết lập kiến trúc micro-frontend, giảm 40% thời gian load trang. Làm việc trực tiếp với CTO để định hướng công nghệ.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot" title="Nhấn để mở rộng"></div>
+                    <div class="timeline-content" data-detail="Phụ trách 6 dự án cùng lúc, giao tiếp với khách hàng từ Mỹ, Úc. Thiết kế hệ thống thanh toán tích hợp Stripe và VNPay.">
+                        <h4>Full-Stack Developer</h4>
+                        <p class="company">Digital Agency Nova</p>
+                        <p class="date">06/2021 - 12/2022</p>
+                        <p>Thiết kế và triển khai REST API, tích hợp cổng thanh toán.</p>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                        <div class="detail-text">✨ Chi tiết: Phụ trách 6 dự án cùng lúc, giao tiếp với khách hàng từ Mỹ, Úc. Thiết kế hệ thống thanh toán tích hợp Stripe và VNPay.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot" title="Nhấn để mở rộng"></div>
+                    <div class="timeline-content" data-detail="Học hỏi từ senior, đóng góp vào module HRM nội bộ. Tự học React và Node.js ngoài giờ để tham gia dự án lớn hơn.">
+                        <h4>Junior Developer</h4>
+                        <p class="company">Startup VinTech</p>
+                        <p class="date">03/2019 - 05/2021</p>
+                        <p>Xây dựng các ứng dụng web nội bộ, module quản lý nhân sự.</p>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                        <div class="detail-text">✨ Chi tiết: Học hỏi từ senior, đóng góp vào module HRM nội bộ. Tự học React và Node.js ngoài giờ để tham gia dự án lớn hơn.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Liên hệ</h2>
+                <div class="section-line"></div>
+                <p style="color:#94a3b8; margin-top:1rem;">Bạn có dự án hoặc ý tưởng? Hãy kết nối với tôi.</p>
+                <p style="color:#64748b; font-size:0.8rem;">👆 Nhấn vào email hoặc số điện thoại để sao chép</p>
+            </div>
+            <div class="contact-wrapper reveal">
+                <div class="contact-info">
+                    <div class="contact-item" data-copy="vubui333@gmail.com" title="Nhấn để sao chép email">
+                        <i class="fas fa-envelope"></i> vubui333@gmail.com
+                        <span class="copy-tooltip">Đã sao chép!</span>
+                    </div>
+                    <div class="contact-item" data-copy="+84837555567" title="Nhấn để sao chép số điện thoại">
+                        <i class="fas fa-phone-alt"></i> +84 837 555 567
+                        <span class="copy-tooltip">Đã sao chép!</span>
+                    </div>
+                    <div class="contact-item" data-copy="TP. Hòa Bình, Việt Nam" title="Nhấn để sao chép địa chỉ">
+                        <i class="fas fa-map-marker-alt"></i> TP. Hòa Bình, Việt Nam
+                        <span class="copy-tooltip">Đã sao chép!</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Bùi Hoang Vũ. Thiết kế bởi chính tôi với 💻 và ☕</p>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" title="Về đầu trang" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose" title="Đóng"><i class="fas fa-times"></i></button>
+            <h3 id="modalTitle"></h3>
+            <div class="modal-tags" id="modalTags"></div>
+            <p id="modalDesc"></p>
+            <p style="color:#38bdf8; font-size:0.9rem;" id="modalExtra"></p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ========== DOM REFS ==========
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const backToTop = document.getElementById('backToTop');
+            const toast = document.getElementById('toast');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modal = document.getElementById('modal');
+            const modalClose = document.getElementById('modalClose');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalTags = document.getElementById('modalTags');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalExtra = document.getElementById('modalExtra');
+            const allNavLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+            const avatarFrame = document.getElementById('avatarFrame');
+
+            let toastTimer;
+
+            // ========== HAMBURGER MENU ==========
+            hamburger.addEventListener('click', () => {
+                const isActive = hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = isActive ? 'hidden' : '';
+                // Cập nhật aria
+                hamburger.setAttribute('aria-expanded', isActive);
+            });
+
+            // Đóng mobile menu khi click link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // ========== SMOOTH SCROLL + ACTIVE NAV ==========
+            function scrollToSection(target) {
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            }
+
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    scrollToSection(target);
+                });
+            });
+
+            // Scroll to top
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            document.querySelector('.logo').addEventListener('click', scrollToTop);
+            backToTop.addEventListener('click', scrollToTop);
+
+            // Active nav on scroll
+            const sections = document.querySelectorAll('section, #hero');
+            const navLinksAll = document.querySelectorAll('.nav-links a, .mobile-menu a');
+
+            function updateActiveNav() {
+                let currentSection = '';
+                const scrollPos = window.scrollY + 150;
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                navLinksAll.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+                // Hiển thị back-to-top
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+            window.addEventListener('scroll', updateActiveNav, { passive: true });
+            updateActiveNav();
+
+            // ========== TOAST ==========
+            function showToast(message) {
+                clearTimeout
+                    (toastTimer);
+                toast.textContent = message;
+                toast.classList.add('show');
+                toastTimer = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            }
+
+            // ========== COPY CONTACT ==========
+            document.querySelectorAll('.contact-item[data-copy]').forEach(item => {
+                item.addEventListener('click', () => {
+                    const textToCopy = item.getAttribute('data-copy');
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const tooltip = item.querySelector('.copy-tooltip');
+                        if (tooltip) {
+                            tooltip.classList.add('show');
+                            setTimeout(() => tooltip.classList.remove('show'), 1500);
+                        }
+                        showToast('✅ Đã sao chép: ' + textToCopy);
+                    }).catch(() => {
+                        showToast('⚠️ Không thể sao chép, vui lòng thử lại');
+                    });
+                    // Hiệu ứng nhấn
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => { item.style.transform = ''; }, 150);
+                });
+            });
+
+            // ========== SKILL CARDS EXPAND ==========
+            document.querySelectorAll('.skill-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Không toggle nếu đang chọn text
+                    if (window.getSelection().toString()) return;
+                    const wasExpanded = this.classList.contains('expanded');
+                    // Đóng tất cả
+                    document.querySelectorAll('.skill-card.expanded').forEach(c =>
+                        c.classList.remove('expanded'));
+                    // Mở cái này nếu chưa mở
+                    if (!wasExpanded) {
+                        this.classList.add('expanded');
+                        // Scroll nhẹ để hiện nội dung
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+            });
+
+            // ========== INFO ITEMS EXPAND ==========
+            document.querySelectorAll('.info-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.getSelection().toString()) return;
+                    const wasExpanded = this.classList.contains('expanded');
+                    document.querySelectorAll('.info-item.expanded').forEach(i => i.classList
+                        .remove('expanded'));
+                    if (!wasExpanded) {
+                        this.classList.add('expanded');
+                    }
+                });
+            });
+
+            // ========== TIMELINE EXPAND ==========
+            document.querySelectorAll('.timeline-content').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    if (window.getSelection().toString()) return;
+                    // Không toggle nếu click vào link bên trong
+                    if (e.target.closest('a')) return;
+                    const wasExpanded = this.classList.contains('expanded');
+                    document.querySelectorAll('.timeline-content.expanded').forEach(c => c
+                        .classList.remove('expanded'));
+                    if (!wasExpanded) {
+                        this.classList.add('expanded');
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+            });
+            // Timeline dot cũng expand được
+            document.querySelectorAll('.timeline-dot').forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    if (content && content.classList.contains('timeline-content')) {
+                        content.click();
+                    }
+                });
+            });
+
+            // ========== PROJECT MODAL ==========
+            const projectData = {
+                fintrack: {
+                    title: 'FinTrack Dashboard',
+                    tags: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
+                    desc: 'Nền tảng phân tích tài chính cá nhân với biểu đồ động và AI dự báo chi tiêu. Hỗ trợ đồng bộ dữ liệu ngân hàng qua API, phân loại giao dịch tự động bằng machine learning.',
+                    extra: '📊 5000+ người dùng | 🏆 Giải nhì Hackathon Fintech 2024'
+                },
+                ecommerce: {
+                    title: 'E-Commerce Microservices',
+                    tags: ['Next.js', 'NestJS', 'Redis', 'Docker', 'Stripe'],
+                    desc: 'Hệ thống bán hàng đa kênh, kiến trúc microservices, tích hợp thanh toán online. Xử lý 10K đơn hàng/ngày với độ trễ dưới 100ms.',
+                    extra: '🛒 Tích hợp: Stripe, VNPay, Momo | 📦 Auto-scaling với Kubernetes'
+                },
+                health: {
+                    title: 'Health App Mobile',
+                    tags: ['React Native', 'Firebase', 'Push Notification'],
+                    desc: 'Ứng dụng theo dõi sức khỏe, đặt lịch khám và nhắc uống thuốc thông minh. Tích hợp AI chatbot tư vấn sức khỏe cơ bản.',
+                    extra: '📱 iOS + Android | ⭐ 4.8 sao trên App Store'
+                }
+            };
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const projectKey = this.getAttribute('data-project');
+                    const data = projectData[projectKey];
+                    if (!data) return;
+                    modalTitle.textContent = data.title;
+                    modalTags.innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`)
+                        .join('');
+                    modalDesc.textContent = data.desc;
+                    modalExtra.textContent = data.extra;
+                    modalOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            function closeModal() {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // ========== AVATAR CLICK ==========
+            avatarFrame.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    // Tạo hiệu ứng pulse
+                    this.style.animation = 'pulse 1.2s ease';
+                    setTimeout(() => { this.style.animation = ''; }, 1200);
+                    showToast('📸 Ảnh đại diện của Bùi Hoang Vũ');
+                    // Phóng to ảnh (có thể mở modal ảnh)
+                    const tempModal = document.createElement('div');
+                    tempModal.style.cssText = `
+                        position:fixed;top:0;left:0;width:100%;height:100%;
+                        background:rgba(0,0,0,0.9);z-index:300;display:flex;
+                        align-items:center;justify-content:center;cursor:pointer;
+                        opacity:0;transition:opacity 0.3s;
+                      `;
+                    const clonedImg = img.cloneNode(true);
+                    clonedImg.style.cssText =
+                        'max-width:90vw;max-height:90vh;border-radius:20px;object-fit:cover;';
+                    tempModal.appendChild(clonedImg);
+                    document.body.appendChild(tempModal);
+                    requestAnimationFrame(() => { tempModal.style.opacity = '1'; });
+                    tempModal.addEventListener('click', () => {
+                        tempModal.style.opacity = '0';
+                        setTimeout(() => tempModal.remove(), 300);
+                    });
+                }
+            });
+
+            // ========== SCROLL REVEAL ==========
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // ========== RIPPLE EFFECT ON BUTTONS ==========
+            document.querySelectorAll('.ripple').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.cssText = `
+                        position:absolute;
+                        width:${size}px;height:${size}px;
+                        left:${e.clientX - rect.left - size/2}px;
+                        top:${e.clientY - rect.top - size/2}px;
+                        background:rgba(255,255,255,0.25);
+                        border-radius:50%;
+                        transform:scale(0);
+                        animation: rippleAnim 0.6s ease-out;
+                        pointer-events:none;
+                      `;
+                    this.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => ripple.remove());
+                });
+            });
+
+            // Thêm keyframe rippleAnim
+            const rippleStyle = document.createElement('style');
+            rippleStyle.textContent = `
+                @keyframes rippleAnim {
+                  to { transform: scale(4); opacity: 0; }
+                }
+              `;
+            document.head.appendChild(rippleStyle);
+
+            // ========== SOCIAL LINKS CLICK ==========
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const platform = this.getAttribute('aria-label') || this.getAttribute('title') ||
+                        'Mạng xã hội';
+                    showToast('🔗 Đang mở ' + platform + '...');
+                    // Giữ nguyên hành vi mặc định (điều hướng)
+                });
+            });
+
+            // ========== KEYBOARD SHORTCUTS ==========
+            document.addEventListener('keydown', function(e) {
+                // Escape để đóng mobile menu
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            console.log('✨ Portfolio tương tác đã sẵn sàng!');
+            console.log('   👆 Thử nhấn vào: skill cards, dự án, mốc thời gian, contact info');
+            console.log('   📋 Click email/SĐT để copy | 🖼️ Click avatar để phóng to');
+            console.log('   🚀 Thiết kế bởi Bùi Hoang Vũ');
+        })();
+    </script>
+</body>
+</html>
